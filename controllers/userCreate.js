@@ -1,3 +1,5 @@
+const usersSQL = require("../models/userSQL")
+
 module.exports = async function (req, res) {
     let body = ""
     req.on("data", chunk => {
@@ -9,15 +11,14 @@ module.exports = async function (req, res) {
             const name = parsedBody.name
             const age = parsedBody.age
             if (name && age) {
-                // const query = await usersSQL.createUser(name, age)
+                const query = await usersSQL.createUser(name, age)
                 console.log("New User" + JSON.stringify({
                     name: name,
                     password: age
                 }))
                 res.status(201).json({
                     "status": "CREATED", data: {
-                        // ...query
-                        "data": "data"
+                        ...query
                     }
                 })
             }
